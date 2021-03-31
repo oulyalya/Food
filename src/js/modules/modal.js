@@ -1,58 +1,57 @@
-const escPressHandler = function (evt) {
+const escPressHandler = function (evt, modalSelector) {
   if (evt.code === 'Escape') {
-    closeModal();
+    closeModal(modalSelector);
   }
 };
 
-const openModal = function () {
+const openModal = function (modalSelector, modalTimerId) {
+  const modal = document.querySelector(modalSelector);
   modal.classList.add('shown');
   modal.classList.remove('hidden');
   document.documentElement.classList.add('body-lock');
-  document.addEventListener('keydown', escPressHandler);
-  clearInterval(modalTimerId);
+  document.addEventListener('keydown', (evt) => escPressHandler(evt, modalSelector));
+
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
+  }
 };
 
-const closeModal = function () {
+const closeModal = function (modalSelector) {
+  const modal = document.querySelector(modalSelector);
   modal.classList.remove('shown');
   modal.classList.add('hidden');
   document.documentElement.classList.remove('body-lock');
-  document.removeEventListener('keydown', escPressHandler);
+  document.removeEventListener('keydown', (evt) => escPressHandler(evt, modalSelector));
 };
 
-function modal() {
-  const modalTriggers = document.querySelectorAll('[data-modal]');
-  const modal = document.querySelector('.modal');
+function modal(triggerSelector, modalSelector, modalTimerId) {
+  const modalTriggers = document.querySelectorAll(triggerSelector);
+  const modal = document.querySelector(modalSelector);
 
   const showModalHandler = function () {
-    openModal();
+    openModal(modalSelector, modalTimerId);
   };
 
-  // const hideModalHandler = function () {
-  //   closeModal();
-  // };
-
-  const overlayClickHandler = function (evt) {
+  const closeModalHandler = function (evt) {
     if (evt.target === modal || evt.target.getAttribute('data-close') == '') {
-      closeModal();
+      closeModal(modalSelector);
     }
   };
 
-  const modalTimerId = setTimeout(showModalHandler, 50000);
-
   const showModalByScrollHandler = function () {
     if (window.pageYOffset + document.documentElement.clientHeight + 20 >= document.documentElement.scrollHeight) {
-      openModal();
+      openModal(modalSelector, modalTimerId);
       window.removeEventListener('scroll', showModalByScrollHandler);
     }
   };
 
   window.addEventListener('scroll', showModalByScrollHandler);
 
-  modal.addEventListener('click', overlayClickHandler);
+  modal.addEventListener('click', closeModalHandler);
   modalTriggers.forEach(btn => btn.addEventListener('click', showModalHandler));
 }
 
 export default modal;
-export { escPressHandler };
+// export { escPressHandler };
 export { openModal };
 export { closeModal };

@@ -202,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
 
 
-function forms() {
+function forms(modalTimerId) {
   const forms = document.querySelectorAll('form');
 
   const message = {
@@ -214,7 +214,7 @@ function forms() {
   const showThanksModal = function (message) {
     const prevModalContent = document.querySelector('.modal__dialog');
     prevModalContent.classList.add('hidden');
-    (0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)();
+    (0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)('.modal', modalTimerId);
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -231,7 +231,7 @@ function forms() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalContent.classList.remove('hidden');
-      (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)();
+      (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)('.modal');
     }, 4000);
   };
 
@@ -294,66 +294,64 @@ function forms() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "escPressHandler": () => (/* binding */ escPressHandler),
 /* harmony export */   "openModal": () => (/* binding */ openModal),
 /* harmony export */   "closeModal": () => (/* binding */ closeModal)
 /* harmony export */ });
-const escPressHandler = function (evt) {
+const escPressHandler = function (evt, modalSelector) {
   if (evt.code === 'Escape') {
-    closeModal();
+    closeModal(modalSelector);
   }
 };
 
-const openModal = function () {
+const openModal = function (modalSelector, modalTimerId) {
+  const modal = document.querySelector(modalSelector);
   modal.classList.add('shown');
   modal.classList.remove('hidden');
   document.documentElement.classList.add('body-lock');
-  document.addEventListener('keydown', escPressHandler);
-  clearInterval(modalTimerId);
+  document.addEventListener('keydown', (evt) => escPressHandler(evt, modalSelector));
+
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
+  }
 };
 
-const closeModal = function () {
+const closeModal = function (modalSelector) {
+  const modal = document.querySelector(modalSelector);
   modal.classList.remove('shown');
   modal.classList.add('hidden');
   document.documentElement.classList.remove('body-lock');
-  document.removeEventListener('keydown', escPressHandler);
+  document.removeEventListener('keydown', (evt) => escPressHandler(evt, modalSelector));
 };
 
-function modal() {
-  const modalTriggers = document.querySelectorAll('[data-modal]');
-  const modal = document.querySelector('.modal');
+function modal(triggerSelector, modalSelector, modalTimerId) {
+  const modalTriggers = document.querySelectorAll(triggerSelector);
+  const modal = document.querySelector(modalSelector);
 
   const showModalHandler = function () {
-    openModal();
+    openModal(modalSelector, modalTimerId);
   };
 
-  // const hideModalHandler = function () {
-  //   closeModal();
-  // };
-
-  const overlayClickHandler = function (evt) {
+  const closeModalHandler = function (evt) {
     if (evt.target === modal || evt.target.getAttribute('data-close') == '') {
-      closeModal();
+      closeModal(modalSelector);
     }
   };
 
-  const modalTimerId = setTimeout(showModalHandler, 50000);
-
   const showModalByScrollHandler = function () {
     if (window.pageYOffset + document.documentElement.clientHeight + 20 >= document.documentElement.scrollHeight) {
-      openModal();
+      openModal(modalSelector, modalTimerId);
       window.removeEventListener('scroll', showModalByScrollHandler);
     }
   };
 
   window.addEventListener('scroll', showModalByScrollHandler);
 
-  modal.addEventListener('click', overlayClickHandler);
+  modal.addEventListener('click', closeModalHandler);
   modalTriggers.forEach(btn => btn.addEventListener('click', showModalHandler));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
-
+// export { escPressHandler };
 
 
 
@@ -689,14 +687,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
+  const modalTimerId = setTimeout(() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__.openModal)('.modal', modalTimerId), 50000);
+
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__.default)();
-  // modal('[data-modal]', '.modal');
-  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__.default)();
+  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__.default)('[data-modal]', '.modal', modalTimerId);
   (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__.default)();
   (0,_modules_cards__WEBPACK_IMPORTED_MODULE_3__.default)();
   (0,_modules_calculator__WEBPACK_IMPORTED_MODULE_4__.default)();
-  (0,_modules_forms__WEBPACK_IMPORTED_MODULE_5__.default)();
+  (0,_modules_forms__WEBPACK_IMPORTED_MODULE_5__.default)(modalTimerId);
   (0,_modules_slider__WEBPACK_IMPORTED_MODULE_6__.default)();
 });
 

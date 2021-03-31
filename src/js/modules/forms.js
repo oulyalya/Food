@@ -1,6 +1,6 @@
 import { openModal, closeModal } from './modal';
 
-function forms() {
+function forms(modalTimerId) {
   const forms = document.querySelectorAll('form');
 
   const message = {
@@ -12,7 +12,7 @@ function forms() {
   const showThanksModal = function (message) {
     const prevModalContent = document.querySelector('.modal__dialog');
     prevModalContent.classList.add('hidden');
-    openModal();
+    openModal('.modal', modalTimerId);
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -29,7 +29,7 @@ function forms() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalContent.classList.remove('hidden');
-      closeModal();
+      closeModal('.modal');
     }, 4000);
   };
 
