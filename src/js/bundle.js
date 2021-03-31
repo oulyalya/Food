@@ -199,7 +199,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// import { openModal, closeModal } from './modal';
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
+
 
 function forms() {
   const forms = document.querySelectorAll('form');
@@ -213,7 +214,7 @@ function forms() {
   const showThanksModal = function (message) {
     const prevModalContent = document.querySelector('.modal__dialog');
     prevModalContent.classList.add('hidden');
-    openModal();
+    (0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)();
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -230,7 +231,7 @@ function forms() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalContent.classList.remove('hidden');
-      closeModal();
+      (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)();
     }, 4000);
   };
 
@@ -292,33 +293,35 @@ function forms() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "escPressHandler": () => (/* binding */ escPressHandler),
+/* harmony export */   "openModal": () => (/* binding */ openModal),
+/* harmony export */   "closeModal": () => (/* binding */ closeModal)
 /* harmony export */ });
+const escPressHandler = function (evt) {
+  if (evt.code === 'Escape') {
+    closeModal();
+  }
+};
+
+const openModal = function () {
+  modal.classList.add('shown');
+  modal.classList.remove('hidden');
+  document.documentElement.classList.add('body-lock');
+  document.addEventListener('keydown', escPressHandler);
+  clearInterval(modalTimerId);
+};
+
+const closeModal = function () {
+  modal.classList.remove('shown');
+  modal.classList.add('hidden');
+  document.documentElement.classList.remove('body-lock');
+  document.removeEventListener('keydown', escPressHandler);
+};
+
 function modal() {
   const modalTriggers = document.querySelectorAll('[data-modal]');
   const modal = document.querySelector('.modal');
-
-
-  const escPressHandler = function (evt) {
-    if (evt.code === 'Escape') {
-      closeModal();
-    }
-  };
-
-  const openModal = function () {
-    modal.classList.add('shown');
-    modal.classList.remove('hidden');
-    document.documentElement.classList.add('body-lock');
-    document.addEventListener('keydown', escPressHandler);
-    clearInterval(modalTimerId);
-  };
-
-  const closeModal = function () {
-    modal.classList.remove('shown');
-    modal.classList.add('hidden');
-    document.documentElement.classList.remove('body-lock');
-    document.removeEventListener('keydown', escPressHandler);
-  };
 
   const showModalHandler = function () {
     openModal();
@@ -350,9 +353,9 @@ function modal() {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
-// export { escPressHandler };
-// export { openModal };
-// export { closeModal };
+
+
+
 
 
 /***/ }),

@@ -1,28 +1,27 @@
+const escPressHandler = function (evt) {
+  if (evt.code === 'Escape') {
+    closeModal();
+  }
+};
+
+const openModal = function () {
+  modal.classList.add('shown');
+  modal.classList.remove('hidden');
+  document.documentElement.classList.add('body-lock');
+  document.addEventListener('keydown', escPressHandler);
+  clearInterval(modalTimerId);
+};
+
+const closeModal = function () {
+  modal.classList.remove('shown');
+  modal.classList.add('hidden');
+  document.documentElement.classList.remove('body-lock');
+  document.removeEventListener('keydown', escPressHandler);
+};
+
 function modal() {
   const modalTriggers = document.querySelectorAll('[data-modal]');
   const modal = document.querySelector('.modal');
-
-
-  const escPressHandler = function (evt) {
-    if (evt.code === 'Escape') {
-      closeModal();
-    }
-  };
-
-  const openModal = function () {
-    modal.classList.add('shown');
-    modal.classList.remove('hidden');
-    document.documentElement.classList.add('body-lock');
-    document.addEventListener('keydown', escPressHandler);
-    clearInterval(modalTimerId);
-  };
-
-  const closeModal = function () {
-    modal.classList.remove('shown');
-    modal.classList.add('hidden');
-    document.documentElement.classList.remove('body-lock');
-    document.removeEventListener('keydown', escPressHandler);
-  };
 
   const showModalHandler = function () {
     openModal();
@@ -54,6 +53,6 @@ function modal() {
 }
 
 export default modal;
-// export { escPressHandler };
-// export { openModal };
-// export { closeModal };
+export { escPressHandler };
+export { openModal };
+export { closeModal };
