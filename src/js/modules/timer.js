@@ -14,16 +14,16 @@ function timer() {
       'hours': hours,
       'minutes': minutes,
       'seconds': seconds,
-    }
+    };
   };
 
   const getZero = function (num) {
     if (num >= 0 && num < 10) {
-      return `0${num}`
+      return `0${num}`;
     } else {
       return num;
     }
-  }
+  };
 
   const setTimer = function (selector, endtime) {
     const timer = document.querySelector(selector);

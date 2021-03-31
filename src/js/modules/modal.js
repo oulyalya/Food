@@ -1,5 +1,5 @@
 function modal() {
-  const modalTriggers = document.querySelectorAll('[data-modal]')
+  const modalTriggers = document.querySelectorAll('[data-modal]');
   const modal = document.querySelector('.modal');
 
 
@@ -36,7 +36,7 @@ function modal() {
     if (evt.target === modal || evt.target.getAttribute('data-close') == '') {
       closeModal();
     }
-  }
+  };
 
   const modalTimerId = setTimeout(showModalHandler, 50000);
 

@@ -30,7 +30,7 @@ function slider() {
     } else {
       slideCurrent.textContent = slideIndex;
     }
-  }
+  };
 
   next.addEventListener('click', () => {
     if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
@@ -91,7 +91,7 @@ function slider() {
   const setActiveDot = function () {
     dots.forEach(dot => dot.style.opacity = 0.5);
     dots[slideIndex - 1].style.opacity = 1;
-  }
+  };
 
   dots.forEach(dot => {
     dot.addEventListener('click', (evt) => {
@@ -103,7 +103,7 @@ function slider() {
 
       addZero();
       setActiveDot();
-    })
+    });
   });
 }
 

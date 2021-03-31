@@ -20,7 +20,7 @@ function calculator() {
       if (elem.getAttribute('data-coef') === localStorage.getItem('coef')) {
         elem.classList.add(activeClass);
       }
-    })
+    });
   };
 
   initLocalSettins('#gender .calculating__choose-item', 'calculating__choose-item_active');
@@ -37,7 +37,7 @@ function calculator() {
     } else {
       calcOutput.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * coef);
     }
-  }
+  };
 
   const getStaticInformation = function (selector, activeClass) {
     const elements = document.querySelectorAll(`${selector} .calculating__choose-item`);
@@ -50,14 +50,14 @@ function calculator() {
           localStorage.setItem('coef', evt.target.getAttribute('data-coef'));
         } else {
           gender = evt.target.getAttribute('id');
-          localStorage.setItem('gender', evt.target.getAttribute('id'))
+          localStorage.setItem('gender', evt.target.getAttribute('id'));
         }
 
         elements.forEach(elem => elem.classList.remove(activeClass));
         evt.target.classList.add(activeClass);
         calcTotal();
       });
-    })
+    });
   };
 
   const getDynamicInformation = function (selector) {
@@ -85,7 +85,7 @@ function calculator() {
       }
 
       calcTotal();
-    })
+    });
   };
 
   getStaticInformation('#gender', 'calculating__choose-item_active');

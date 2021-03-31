@@ -34,7 +34,7 @@ function calculator() {
       if (elem.getAttribute('data-coef') === localStorage.getItem('coef')) {
         elem.classList.add(activeClass);
       }
-    })
+    });
   };
 
   initLocalSettins('#gender .calculating__choose-item', 'calculating__choose-item_active');
@@ -51,7 +51,7 @@ function calculator() {
     } else {
       calcOutput.textContent = Math.round((447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * coef);
     }
-  }
+  };
 
   const getStaticInformation = function (selector, activeClass) {
     const elements = document.querySelectorAll(`${selector} .calculating__choose-item`);
@@ -64,14 +64,14 @@ function calculator() {
           localStorage.setItem('coef', evt.target.getAttribute('data-coef'));
         } else {
           gender = evt.target.getAttribute('id');
-          localStorage.setItem('gender', evt.target.getAttribute('id'))
+          localStorage.setItem('gender', evt.target.getAttribute('id'));
         }
 
         elements.forEach(elem => elem.classList.remove(activeClass));
         evt.target.classList.add(activeClass);
         calcTotal();
       });
-    })
+    });
   };
 
   const getDynamicInformation = function (selector) {
@@ -99,7 +99,7 @@ function calculator() {
       }
 
       calcTotal();
-    })
+    });
   };
 
   getStaticInformation('#gender', 'calculating__choose-item_active');
@@ -174,7 +174,7 @@ function cards() {
     `;
       this.parent.append(element);
     }
-  };
+  }
 
   getResource('http://localhost:3000/menu')
     .then(data => {
@@ -213,7 +213,7 @@ function forms() {
   const showThanksModal = function (message) {
     const prevModalContent = document.querySelector('.modal__dialog');
     prevModalContent.classList.add('hidden');
-    showModalHandler();
+    openModal();
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -230,7 +230,7 @@ function forms() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalContent.classList.remove('hidden');
-      hideModalHandler();
+      closeModal();
     }, 4000);
   };
 
@@ -295,7 +295,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function modal() {
-  const modalTriggers = document.querySelectorAll('[data-modal]')
+  const modalTriggers = document.querySelectorAll('[data-modal]');
   const modal = document.querySelector('.modal');
 
 
@@ -332,7 +332,7 @@ function modal() {
     if (evt.target === modal || evt.target.getAttribute('data-close') == '') {
       closeModal();
     }
-  }
+  };
 
   const modalTimerId = setTimeout(showModalHandler, 50000);
 
@@ -399,7 +399,7 @@ function slider() {
     } else {
       slideCurrent.textContent = slideIndex;
     }
-  }
+  };
 
   next.addEventListener('click', () => {
     if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
@@ -460,7 +460,7 @@ function slider() {
   const setActiveDot = function () {
     dots.forEach(dot => dot.style.opacity = 0.5);
     dots[slideIndex - 1].style.opacity = 1;
-  }
+  };
 
   dots.forEach(dot => {
     dot.addEventListener('click', (evt) => {
@@ -472,7 +472,7 @@ function slider() {
 
       addZero();
       setActiveDot();
-    })
+    });
   });
 }
 
@@ -561,16 +561,16 @@ function timer() {
       'hours': hours,
       'minutes': minutes,
       'seconds': seconds,
-    }
+    };
   };
 
   const getZero = function (num) {
     if (num >= 0 && num < 10) {
-      return `0${num}`
+      return `0${num}`;
     } else {
       return num;
     }
-  }
+  };
 
   const setTimer = function (selector, endtime) {
     const timer = document.querySelector(selector);

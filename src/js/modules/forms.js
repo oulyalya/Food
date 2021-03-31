@@ -12,7 +12,7 @@ function forms() {
   const showThanksModal = function (message) {
     const prevModalContent = document.querySelector('.modal__dialog');
     prevModalContent.classList.add('hidden');
-    showModalHandler();
+    openModal();
 
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
@@ -29,7 +29,7 @@ function forms() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalContent.classList.remove('hidden');
-      hideModalHandler();
+      closeModal();
     }, 4000);
   };
 

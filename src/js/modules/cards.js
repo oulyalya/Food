@@ -46,7 +46,7 @@ function cards() {
     `;
       this.parent.append(element);
     }
-  };
+  }
 
   getResource('http://localhost:3000/menu')
     .then(data => {
