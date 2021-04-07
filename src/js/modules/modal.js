@@ -52,6 +52,5 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 }
 
 export default modal;
-// export { escPressHandler };
 export { openModal };
 export { closeModal };

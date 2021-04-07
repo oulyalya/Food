@@ -8,6 +8,8 @@ import slider from './modules/slider';
 import { openModal } from './modules/modal';
 
 window.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+
   const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 50000);
 
   tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
